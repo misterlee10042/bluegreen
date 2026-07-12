@@ -79,9 +79,8 @@ pipeline {
               echo "total replicas: $replicas, ready replicas: $ready"
               if [ "$ready" -eq "$replicas" ]; then
                 echo "tag change and build deployment file by kustomize" 
-                kustomize edit add label deploy:$tag -f
-                # 추가 
-                kustomize edit add patch --patch '[{"op": "replace", "path": "/spec/ports/0/targetPort", "value": 3000}]'
+                kustomize edit add label deploy:$tag -f 
+                # kustomize edit add patch --patch '[{"op": "replace", "path": "/spec/ports/0/targetPort", "value": 80}]'
                 kustomize build . | kubectl apply -f -
                 echo "delete $tag deployment"
                 kubectl delete deployment --selector=app=dashboard,deploy!=$tag
