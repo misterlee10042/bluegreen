@@ -8,7 +8,7 @@ data:
    web.conf: |-
     server {
       add_header Cache-Control no-store;
-      listen 80;
+      listen 3000;
       location / {
         root /public;
         index index.html;
